@@ -19,6 +19,20 @@ Notepad::Notepad(QWidget *parent)
     connect(ui->actionSave_as, &QAction::triggered, this, &Notepad::saveAs);
     connect(ui->actionClose, &QAction::triggered, this, &Notepad::close);
     connect(ui->actionExit, &QAction::triggered, this, &Notepad::exit);
+    connect(ui->actionCut, &QAction::triggered, this, &Notepad::cut);
+    connect(ui->actionCopy, &QAction::triggered, this, &Notepad::copy);
+    connect(ui->actionPaste, &QAction::triggered, this, &Notepad::paste);
+    connect(ui->actionUndo, &QAction::triggered, this, &Notepad::undo);
+    connect(ui->actionRedo, &QAction::triggered, this, &Notepad::redo);
+    connect(ui->actionBold, &QAction::triggered, this, &Notepad::toggleFontBold);
+    connect(ui->actionItalic, &QAction::triggered, this, &Notepad::toggleFontItalic);
+    connect(ui->actionUnderline, &QAction::triggered, this, &Notepad::toggleFontUnderline);
+
+#if !QT_CONFIG(clipboard)
+    ui->actionCut->setEnabled(false);
+    ui->actionCopy->setEnabled(false);
+    ui->actionPaste->setEnabled(false);
+#endif
 }
 
 Notepad::~Notepad()
@@ -112,4 +126,43 @@ void Notepad::exit()
     {
         QCoreApplication::quit();
     }
+}
+void Notepad::cut()
+{
+    ui->textEdit->cut();
+}
+void Notepad::copy()
+{
+    ui->textEdit->copy();
+}
+void Notepad::paste()
+{
+    ui->textEdit->paste();
+}
+void Notepad::undo()
+{
+    ui->textEdit->undo();
+}
+void Notepad::redo()
+{
+    ui->textEdit->redo();
+}
+void Notepad::toggleFontBold()
+{
+    if(ui->textEdit->fontWeight()==QFont::Bold)
+    {
+        ui->textEdit->setFontWeight(QFont::Normal);
+    }
+    else
+    {
+        ui->textEdit->setFontWeight(QFont::Bold);
+    }
+}
+void Notepad::toggleFontItalic()
+{
+    ui->textEdit->setFontItalic(!ui->textEdit->fontItalic());
+}
+void Notepad::toggleFontUnderline()
+{
+    ui->textEdit->setFontUnderline(!ui->textEdit->fontUnderline());
 }

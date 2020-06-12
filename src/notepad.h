@@ -23,15 +23,15 @@ private slots:
     void close();
 //    void print();
     void exit();
-//    void copy();
-//    void cut();
-//    void paste();
-//    void undo();
-//    void redo();
+    void copy();
+    void cut();
+    void paste();
+    void undo();
+    void redo();
 //    void selectFont();
-//    void setFontBold(bool bold);
-//    void setFontUnderline(bool underline);
-//    void setFontItalic(bool italic);
+    void toggleFontBold();
+    void toggleFontUnderline();
+    void toggleFontItalic();
 //    void about();
 private:
     Ui::Notepad *ui;
